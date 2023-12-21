@@ -1,0 +1,50 @@
+.registration {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+
+.registration h1 {
+  font-family: var(--primary-font);
+  color: var(--nevy-blue);
+  font-size: 34px;
+  font-weight: 700;
+  margin-bottom: 23px;
+}
+.registration h3 {
+  font-family: var(--primary-font);
+  color: var(--subtext-color);
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 13px;
+}
+.reg_btn button {
+  padding: 18px !important;
+  margin-top: 30px !important;
+  background-color: var(--primary-color) !important;
+  border-radius: 50px !important;
+}
+.reg_btn {
+  margin-left: 50px !important;
+  margin-right: 50px !important;
+}
+.registration p {
+  text-align: center;
+  margin-top: 23px;
+  color: var(--blue-color);
+  font-size: var(--primary-font);
+}
+.registration p span {
+  text-align: center;
+  margin-top: 23px;
+  color: var(--orange-color);
+  font-size: var(--primary-font);
+}
+/* .box {
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 40px;
+  margin-bottom: 90px;
+  background-color: rgb(238, 238, 237);
+  /* background-color: rgb(237, 240, 243); */
