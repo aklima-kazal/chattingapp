@@ -2,6 +2,7 @@ import React from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
+import { signUp } from "../../validation/Validation";
 
 const Forms = () => {
   let initialvalues = {
@@ -12,11 +13,12 @@ const Forms = () => {
 
   const formik = useFormik({
     initialValues: initialvalues,
+    validationSchema: signUp,
     onSubmit: () => {
-      console.log(formik);
+      console.log("adddd");
     },
   });
-
+  console.log(formik.values);
   return (
     <>
       <div>
@@ -30,19 +32,23 @@ const Forms = () => {
             variant="outlined"
             fullWidth
             onChange={formik.handleChange}
+            value={formik.values.email}
             name="email"
             margin="normal"
           />
+          {formik.errors.email && <p>formik.errors.email</p>}
           <TextField
             type="text"
             id="outlined-basic"
-            label="Full name"
+            label="Full Name"
             variant="outlined"
             fullWidth
             onChange={formik.handleChange}
+            value={formik.values.fullname}
             name="fullname"
             margin="normal"
           />
+          {formik.errors.fullname && <p>formik.errors.fullname</p>}
           <TextField
             type="password"
             id="outlined-basic"
@@ -50,9 +56,11 @@ const Forms = () => {
             variant="outlined"
             fullWidth
             onChange={formik.handleChange}
+            value={formik.values.password}
             name="password"
             margin="normal"
           />
+          {formik.errors.password && <p>formik.errors.password</p>}
         </form>
         <div className="reg_btn">
           <Button type="submit" variant="contained" fullWidth>
