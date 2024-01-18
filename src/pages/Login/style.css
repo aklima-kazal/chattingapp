@@ -1,58 +1,44 @@
-.registration {
+.login {
   height: 100vh;
   align-items: center;
   justify-content: center;
   display: flex;
 }
-
-.registration h1 {
+.login h1 {
   font-family: var(--primary-font);
   color: var(--nevy-blue);
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 700;
   margin-bottom: 23px;
 }
-.registration h3 {
-  font-family: var(--primary-font);
-  color: var(--subtext-color);
-  font-size: 20px;
-  font-weight: 400;
-  margin-bottom: 13px;
-}
-.reg_btn button {
+.signin_btn button {
   padding: 18px !important;
   margin-top: 30px !important;
   background-color: var(--primary-color) !important;
   border-radius: 50px !important;
 }
-.reg_btn {
+.signin_btn {
   margin-left: 50px !important;
   margin-right: 50px !important;
 }
-.registration p {
+.login p {
   margin-top: 15px;
   color: var(--blue-color);
   font-family: var(--primary-font);
 }
-.registration p span {
+.login p span {
   color: var(--orange-color);
   font-family: var(--primary-font);
 }
-.auth {
+.signin_auth {
   text-align: center;
   margin-top: 23px;
 }
-.error {
+.signin_error {
   margin-top: 10px !important;
   color: rgb(248, 106, 106) !important;
 }
-.password_field {
-  position: relative;
-}
-.eye_off {
-  position: absolute;
-  top: 45%;
-  right: 15px;
-  transform: translatex(-50%);
-  cursor: pointer;
+.forget span {
+  margin-top: 15px;
+  font-family: var(--primary-font);
 }

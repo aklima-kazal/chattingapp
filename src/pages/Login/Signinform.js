@@ -1,64 +1,51 @@
 import React, { useState } from "react";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
+import { Button, TextField } from "@mui/material";
 import { useFormik } from "formik";
-import { signUp } from "../../validation/Validation";
-import { ImEyeBlocked, ImEye } from "react-icons/im";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  sendEmailVerification,
-} from "firebase/auth";
-import { Link, useNavigate } from "react-router-dom";
+import { ImEyeBlocked, ImEye } from "react-icons/im";
 import { RingLoader } from "react-spinners";
+import { signIn } from "../../validation/Validation";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
-const Forms = () => {
-  const [loading, setLoading] = useState(false);
+const Signinform = () => {
   const [passwordShow, setPasswordShow] = useState("password");
+  const [loading, setLoading] = useState(false);
   const auth = getAuth();
-  const navigate = useNavigate();
+
   let initialvalues = {
     email: "",
-    fullname: "",
     password: "",
+  };
+  const handlePassShow = () => {
+    if (passwordShow === "password") {
+      setPasswordShow("text");
+    } else {
+      setPasswordShow("password");
+    }
   };
 
   const formik = useFormik({
     initialValues: initialvalues,
-    validationSchema: signUp,
+    validationSchema: signIn,
     onSubmit: () => {
-      creatUsers();
+      // creatUsers();
+      Signinuser();
     },
   });
-  const creatUsers = () => {
-    setLoading(true);
-    createUserWithEmailAndPassword(
+  const Signinuser = () => {
+    signInWithEmailAndPassword(
       auth,
       formik.values.email,
       formik.values.password
     )
       .then(() => {
-        sendEmailVerification(auth.currentUser).then(() => {
-          toast.success(" Email Sent ", {
-            position: "bottom-center",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            theme: "dark",
-          });
-        });
-
-        navigate("/login");
-        setLoading(false);
+        console.log("hello");
       })
       .catch((error) => {
-        if (error.message.includes(" Error (auth/email-already-in-use).")) {
-          toast.error(" Email already in use ", {
+        if (error.message.includes("auth/wrong_password")) {
+          toast.error("Wrong password", {
             position: "bottom-center",
             autoClose: 1000,
             hideProgressBar: true,
@@ -69,21 +56,14 @@ const Forms = () => {
             theme: "dark",
           });
         }
-        setLoading(false);
       });
   };
-  const handlePassShow = () => {
-    if (passwordShow == "password") {
-      setPasswordShow("text");
-    } else {
-      setPasswordShow("password");
-    }
-  };
+
   return (
     <>
       <div>
-        <h1>Get started with easily register</h1>
-        <h3>Free register and you can enjoy it</h3>
+        <h1>Login To Start Journey With Us </h1>
+
         <ToastContainer />
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -100,20 +80,7 @@ const Forms = () => {
           {formik.errors.email && formik.touched.email && (
             <p className="error">{formik.errors.email}</p>
           )}
-          <TextField
-            type="text"
-            id="outlined-basic"
-            label="Full Name"
-            variant="outlined"
-            fullWidth
-            onChange={formik.handleChange}
-            value={formik.values.fullname}
-            name="fullname"
-            margin="normal"
-          />
-          {formik.errors.fullname && formik.touched.fullname && (
-            <p className="error">{formik.errors.fullname}</p>
-          )}
+
           <div className="password_field">
             <TextField
               type={passwordShow}
@@ -127,15 +94,18 @@ const Forms = () => {
               margin="normal"
             />
             <div className="eye_off" onClick={handlePassShow}>
-              {passwordShow == "password" ? <ImEyeBlocked /> : <ImEye />}
+              {passwordShow === "password" ? <ImEyeBlocked /> : <ImEye />}
             </div>
           </div>
 
           {formik.errors.password && formik.touched.password && (
-            <p className="error">{formik.errors.password}</p>
+            <p className="signin_error">{formik.errors.password}</p>
           )}
         </form>
-        <div className="reg_btn">
+        <div className="forget">
+          <span>Forget Password </span>
+        </div>
+        <div className="signin_btn">
           {loading ? (
             <Button
               type="submit"
@@ -153,17 +123,16 @@ const Forms = () => {
               onClick={formik.handleSubmit}
               fullWidth
             >
-              Sign up
+              Log In
             </Button>
           )}
         </div>
-
-        <p className="auth">
-          Already have an account ? <Link to="/login">Sign In</Link>
+        <p className="signin_auth">
+          Don't have an account ? <Link to="/">Sign Up</Link>
         </p>
       </div>
     </>
   );
 };
 
-export default Forms;
+export default Signinform;
