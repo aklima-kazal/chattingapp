@@ -10,14 +10,17 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { RingLoader } from "react-spinners";
+import { getDatabase, ref, set } from "firebase/database";
 
 const Forms = () => {
   const [loading, setLoading] = useState(false);
   const [passwordShow, setPasswordShow] = useState("password");
   const auth = getAuth();
+  const db = getDatabase();
   const navigate = useNavigate();
   let initialvalues = {
     email: "",
@@ -39,24 +42,57 @@ const Forms = () => {
       formik.values.email,
       formik.values.password
     )
-      .then(() => {
-        sendEmailVerification(auth.currentUser).then(() => {
-          toast.success(" Email Sent ", {
-            position: "bottom-center",
-            autoClose: 1000,
-            hideProgressBar: true,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
-            theme: "dark",
+      .then(({ user }) => {
+        console.log(user);
+        updateProfile(auth.currentUser, {
+          displayName: formik.values.fullname,
+        }).then(() => {
+          setLoading(true);
+          sendEmailVerification(auth.currentUser).then(() => {
+            set(ref(db, "users/" + user.uid), {
+              username: user.displayName,
+              email: user.email,
+            }).then(() => {
+              toast.success(" Email Sent ", {
+                position: "bottom-center",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+                theme: "dark",
+              });
+              setTimeout(() => {
+                navigate("/login");
+              }, 6500);
+              setLoading(false);
+            });
           });
         });
+        // setLoading(true);
+        // sendEmailVerification(auth.currentUser).then(() => {
+        //   set(ref(db, "users/"), {
+        //     username: formik.values.fullname,
+        //     email: formik.values.email,
+        //   });
+        //   toast.success(" Email Sent ", {
+        //     position: "bottom-center",
+        //     autoClose: 1000,
+        //     hideProgressBar: true,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: false,
+        //     progress: undefined,
+        //     theme: "dark",
+        //   });
+        // });
 
-        navigate("/login");
-        setLoading(false);
+        // navigate("/login");
+        // setLoading(false);
       })
       .catch((error) => {
+        console.log(error);
         if (error.message.includes(" Error (auth/email-already-in-use).")) {
           toast.error(" Email already in use ", {
             position: "bottom-center",
@@ -73,7 +109,7 @@ const Forms = () => {
       });
   };
   const handlePassShow = () => {
-    if (passwordShow == "password") {
+    if (passwordShow === "password") {
       setPasswordShow("text");
     } else {
       setPasswordShow("password");
@@ -127,7 +163,7 @@ const Forms = () => {
               margin="normal"
             />
             <div className="eye_off" onClick={handlePassShow}>
-              {passwordShow == "password" ? <ImEyeBlocked /> : <ImEye />}
+              {passwordShow === "password" ? <ImEyeBlocked /> : <ImEye />}
             </div>
           </div>
 
@@ -159,7 +195,7 @@ const Forms = () => {
         </div>
 
         <p className="auth">
-          Already have an account ? <Link to="/login">Sign In</Link>
+          Already have an account ? <Link to="/login">Sign Up</Link>
         </p>
       </div>
     </>

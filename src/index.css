@@ -3,11 +3,16 @@
   --primary-color: #5f35f5;
   --nevy-blue: #11175d;
   --black-color: #000000;
-  --gray-color: #4d4d4d;
-  --white-color: #ffffff;
+  --gray-color: #333;
+  --white-color: #fcfcfc;
   --orange-color: #ea6c00;
   --blue-color: #03014c;
   --subtext-color: #a3a0a0;
+  --searchBox-bg: #f6f6f6;
+  --close-color: #f0f0f0;
+}
+body {
+  background-color: var(--searchBox-bg);
 }
 * {
   margin: 0;

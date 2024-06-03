@@ -13,7 +13,7 @@
 }
 .signin_btn button {
   padding: 18px !important;
-  margin-top: 30px !important;
+  margin-top: 10px !important;
   background-color: var(--primary-color) !important;
   border-radius: 50px !important;
 }
@@ -34,6 +34,10 @@
   text-align: center;
   margin-top: 23px;
 }
+.signin_auth span {
+  color: var(--orange-color);
+  margin-left: 5px;
+}
 .signin_error {
   margin-top: 10px !important;
   color: rgb(248, 106, 106) !important;
@@ -41,4 +45,71 @@
 .forget span {
   margin-top: 15px;
   font-family: var(--primary-font);
+  color: var(--orange-color);
+}
+.icons {
+  gap: 12px;
+  padding: 12px;
+}
+.google {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  margin-right: 20px;
+  margin-left: 20px;
+  margin-bottom: 18px;
+  padding-bottom: 5px;
+  border: 1px solid #ddd;
+}
+
+.google svg {
+  justify-content: center;
+  height: 40px;
+  cursor: pointer;
+}
+.google span {
+  align-items: center;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-family: var(--primary-font);
+}
+
+.facebook {
+  margin-right: 20px;
+  margin-left: 20px;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border: 1px solid #ddd;
+  margin-bottom: 18px;
+}
+.facebook span {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-family: var(--primary-font);
+}
+.facebook svg {
+  height: 45px;
+  padding-left: 20px;
+  cursor: pointer;
+}
+.github {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  border: 1px solid #ddd;
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.github span {
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 17px;
+  font-family: var(--primary-font);
+}
+.github svg {
+  align-items: center;
+  cursor: pointer;
 }

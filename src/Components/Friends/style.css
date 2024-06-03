@@ -1,0 +1,86 @@
+.friends_list {
+  width: 100%;
+  height: 420px;
+  background-color: var(--white-color);
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  box-shadow: 0px 11px 10px rgba(0, 0, 0, 0.1);
+}
+.friends_list_header h2 {
+  font-family: var(--primary-font);
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--gray-color);
+}
+.friends_list_searchBox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--searchBox-bg);
+  padding: 6px 0;
+  margin-top: 15px;
+  border-radius: 50px;
+  width: 85%;
+}
+.friends_list_searchBox input {
+  border: none;
+  outline: none;
+  width: 85%;
+  padding: 6px 0;
+  background-color: var(--searchBox-bg);
+  font-family: var(--primary-font);
+  font-size: 16px;
+  color: var(--gray-color);
+}
+.friends_list_searchBox svg {
+  height: 25px;
+  width: 25px;
+  margin-right: 8px;
+}
+.friends_list_wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid #e8e8e8;
+  padding-bottom: 15px;
+  margin-bottom: 18px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.friends_list_img {
+  height: 55px;
+  width: 55px;
+  background-color: rgb(145, 248, 255);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--gray-color);
+}
+.friends_list_body {
+  margin-top: 25px;
+  overflow-y: auto;
+  height: 280px;
+}
+.friends_list_img img {
+  width: 100%;
+  object-fit: cover;
+}
+.friends_list_titles {
+  width: 150px;
+}
+.friends_list_titles h3 {
+  font-family: var(--primary-font);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--gray-color);
+  margin-bottom: 3px;
+}
+.friends_list_titles span {
+  font-family: var(--primary-font);
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--gray-color);
+}
+.friends_list_join button {
+  margin-right: 8px;
+}
