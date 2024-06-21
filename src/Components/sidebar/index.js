@@ -33,7 +33,7 @@ const Sidebar = () => {
             <div className="profile">
               <div className="profile_picture" onClick={handleOpen}>
                 <picture>
-                  <img src="/assets/profilePicture.jpg" alt="profilepic" />
+                  <img src={user.photoURL} alt="profilepic" />
                 </picture>
                 <div className="profile_overlay">
                   <AiOutlineCloudUpload />

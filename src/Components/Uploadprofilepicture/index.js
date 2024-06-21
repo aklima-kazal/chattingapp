@@ -3,11 +3,26 @@ import "./style.css";
 import { FaImage } from "react-icons/fa6";
 import Imagecropper from "./imagecropper";
 import "cropperjs/dist/cropper.css";
+import {
+  getStorage,
+  ref,
+  uploadString,
+  getDownloadURL,
+} from "firebase/storage";
+import { getAuth, updateProfile } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+import userSlice from "../../feature/slice/userSlice";
 
-const Uploadprofile = () => {
+const Uploadprofile = ({ setOpen }) => {
+  const storage = getStorage();
+  const dispatch = useDispatch();
+  const storageRef = ref(storage, "some-child");
   const [image, setImage] = useState("");
-  const [cropData, setCropData] = useState("#");
-  const [cropper, setCropper] = useState("");
+  const [cropData, setCropData] = useState("");
+  const [cropper, setCropper] = useState();
+  const auth = getAuth();
+  const user = useSelector((users) => users.login.loggedIn);
+
   // const cropperRef = useRef < ReactCropperElement > null;
   const profilePic = useRef(null);
   const handleProfileUpload = (e) => {
@@ -24,9 +39,24 @@ const Uploadprofile = () => {
     reader.readAsDataURL(files[0]);
   };
   const getCropData = () => {
-    if (typeof cropperRef.current?.cropper !== "undefined") {
-      setCropData(cropperRef.current?.cropper.getCroppedCanvas().toDataURL());
+    if (typeof cropper !== "undefined") {
+      setCropData(cropper.getCroppedCanvas().toDataURL());
     }
+    const message4 = cropper.getCroppedCanvas().toDataURL();
+    uploadString(storageRef, message4, "data_url").then((snapshot) => {
+      getDownloadURL(storageRef).then((downloadURL) => {
+        updateProfile(auth.currentUser, {
+          photoURL: downloadURL,
+        }).then(() => {
+          setOpen(false);
+          dispatch(userSlice({ ...user, photoURL: downloadURL }));
+          localStorage.setItem(
+            "users",
+            JSON.stringify({ ...user, photoURL: downloadURL })
+          );
+        });
+      });
+    });
   };
   return (
     <div>
@@ -51,6 +81,7 @@ const Uploadprofile = () => {
             setImage={setImage}
             image={image}
             getCropData={getCropData}
+            setCropper={setCropper}
           />
         )}
       </div>
